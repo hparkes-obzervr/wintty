@@ -3976,8 +3976,8 @@ public sealed partial class MainWindow : Window
         _horizontalTabHost.SetSelectedTabColors(bgColor, fgColor);
         _verticalTabHost.SetSelectedTabColors(bgColor, fgColor);
 
-        var cc = LegibleChromeAccent(
-            _configService.CursorColor ?? _configService.ForegroundColor);
+        // Local patch: stroke in the terminal background so it disappears.
+        var cc = _configService.BackgroundColor;
         var wuiColor = Windows.UI.Color.FromArgb(0xFF,
             (byte)(cc >> 16), (byte)(cc >> 8), (byte)cc);
         // Both hosts, from the one value that also draws the pane border
@@ -4026,8 +4026,8 @@ public sealed partial class MainWindow : Window
 
     private void ApplyPerTabChrome()
     {
-        var defaultBorder = Tabs.TabColorBrush.FromPackedRgb(LegibleChromeAccent(
-            _configService.CursorColor ?? _configService.ForegroundColor));
+        // Local patch: frame in the terminal background so it disappears.
+        var defaultBorder = Tabs.TabColorBrush.FromPackedRgb(_configService.BackgroundColor);
 
         // Startup glow: the lead is the theme foreground, the trail is
         // whichever brush this tab's border ends up with below, so the sweep
