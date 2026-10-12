@@ -67,10 +67,11 @@ internal sealed record EditionBrand(
     /// <summary>
     /// Fraction of the icon height the band occupies.
     ///
-    /// 0.15 is not a taste choice. The ghost's lowest lit row in the
-    /// shipping 256 px master is y=213, which is 83.2 percent down, so a
-    /// band starting at 85 percent clears the mark with a few pixels to
-    /// spare, and 0.168 is the hard ceiling.
+    /// 0.15 is not a taste choice. It was sized against an earlier mark
+    /// whose lowest lit row in the 256 px master was y=213, 83.2 percent
+    /// down, so a band starting at 85 percent cleared it with a few pixels
+    /// to spare. The current Ghostty mark ends at y=134, 52 percent down,
+    /// so it now clears with plenty of room.
     /// <see cref="MonogramBandTests.BandNeverReachesTheGhost"/> holds this
     /// to the real artwork rather than to this comment.
     ///

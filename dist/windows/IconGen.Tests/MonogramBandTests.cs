@@ -142,10 +142,13 @@ public class MonogramBandTests
         // never lays down a fully inked pixel, so a "close to BandInk"
         // probe reports zero on letters that are plainly there. What makes
         // them letters is being markedly darker than the band they sit on.
+        // Only inside the band: BottomBand insets it by the rim at the sides
+        // and bottom, and the artwork's dark outer bezel shows through there.
+        int rim = (int)Math.Round(size / 256.0 * 2);
         double fill = Luminance(brand.BandFill);
         int ink = 0;
-        for (int y = bandTop + rule; y < size; y++)
-            for (int x = 0; x < size; x++)
+        for (int y = bandTop + rule; y < size - rim; y++)
+            for (int x = rim; x < size - rim; x++)
             {
                 var c = icon.GetPixel(x, y);
                 if (c.A <= 200) continue;
@@ -261,10 +264,12 @@ public class MonogramBandTests
         int drawHeight = Math.Max(1, bandHeight - rim);
         int monogramTop = size - bandHeight + Math.Max(1, drawHeight / 2);
 
+        // Only inside the band: BottomBand insets it by the rim at the sides
+        // and bottom, and the artwork's dark outer bezel shows through there.
         double fill = Luminance(brand.BandFill);
         int ink = 0;
-        for (int y = monogramTop; y < size; y++)
-            for (int x = 0; x < size; x++)
+        for (int y = monogramTop; y < size - rim; y++)
+            for (int x = rim; x < size - rim; x++)
             {
                 var c = icon.GetPixel(x, y);
                 if (c.A > 200 && Luminance(c) <= fill * 0.6) ink++;
